@@ -56,7 +56,7 @@ async function presentCard({ ex, counter, first }) {
     setTile('wave', 'hello'); c.classList.add('in');
     setEntry('', 'A short reset for your body.');
     await typeText("It's time to stretch!"); if (my !== run) return;
-    if (!reducedMotion) await wait(850); if (my !== run) return;
+    await wait(reducedMotion ? 1500 : 850); if (my !== run) return;
     showContent(ex, counter, my);
   } else showContent(ex, counter, my);
 }
