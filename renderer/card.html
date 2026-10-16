@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:transparent;overflow:hidden;font-family:Inter,"Segoe UI",sans-serif;user-select:none}
+#card{position:absolute;left:36px;top:36px;width:420px;min-height:170px;box-sizing:border-box;background:#fff;border-radius:22px;box-shadow:0 12px 40px rgba(0,0,0,.18);padding:18px 20px 22px;overflow:hidden;opacity:0;transform:translateX(40px);transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+#card.in{opacity:1;transform:none}
+.grid{display:grid;grid-template-columns:130px 1fr;gap:16px}
+#tile{width:130px;height:130px;border-radius:16px;background:#F3EEE6;display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+#tile svg{width:112px;height:123px}
+.right{position:relative;min-height:130px}
+.content,.entry{transition:opacity .45s ease}
+.content{display:flex;flex-direction:column;gap:4px;opacity:0}
+.entry{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;font-size:20px;font-weight:700;color:#1A1A1A}
+.row1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+#title{font-size:20px;font-weight:700;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#counter{font-size:14px;color:#7A7A7A;white-space:nowrap}
+#instr{font-size:14px;color:#555;line-height:1.3}
+#dur{font-size:14px;color:#C8452E;font-weight:600}
+.row4{display:flex;align-items:flex-start;gap:8px;margin-top:4px}
+button{font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;height:30px;padding:0 18px;cursor:pointer}
+#done{background:#111;color:#fff}#stop{background:#ECECEC;color:#222;padding:0 16px}
+.side{margin-left:auto;text-align:right}
+#howto{background:none;color:#555;padding:0;height:auto;font-weight:500;font-size:13px;line-height:18px}
+#howto i{display:inline-block;font-style:normal;transition:transform .2s}
+.open #howto i{transform:rotate(180deg)}
+#left{font-size:12px;color:#7A7A7A;margin-top:2px}
+#steps{display:none;margin:12px 0 0;padding:0 0 0 20px;font-size:13px;color:#444;line-height:1.5}
+#steps li{margin-bottom:2px}
+.open #steps{display:block}
+#bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:#D9534F}
+@keyframes fill{from{width:0}to{width:100%}}
+</style></head>
+<body>
+<div id="card"><div class="grid"><div id="tile"></div>
+<div class="right"><div class="entry" id="entry"></div>
+<div class="content" id="content">
+<div class="row1"><span id="title"></span><span id="counter"></span></div>
+<div id="instr"></div><div id="dur"></div>
+<div class="row4"><button id="done">Done</button><button id="stop">Stop</button>
+<div class="side"><button id="howto">How to <i>⌄</i></button><div id="left"></div></div></div>
+</div></div></div>
+<ol id="steps"></ol><div id="bar"></div></div>
+<script src="mascot.js"></script>
+<script src="card.js"></script>
+</body></html>

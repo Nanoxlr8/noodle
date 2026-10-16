@@ -1,0 +1,10 @@
+# Local Electron state, dependencies, and personal configuration
+node_modules/
+config.json
+screenshots/
+.env
+.env.*
+dist/
+out/
+build/
+*.log

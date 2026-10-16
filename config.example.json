@@ -1,0 +1,10 @@
+{
+  "cooldown_min": 25,
+  "start_delay_sec": 20,
+  "port": 47321,
+  "walk_every_sessions": 4,
+  "walk_after_min": 10,
+  "screen_time": true,
+  "screen_time_min": 30,
+  "idle_reset_min": 5
+}

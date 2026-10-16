@@ -1,0 +1,10 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "node \"<path-to-noodle>/hooks/noodle_hook.js\" start" } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "node \"<path-to-noodle>/hooks/noodle_hook.js\" stop" } ] }
+    ]
+  }
+}

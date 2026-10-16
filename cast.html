@@ -1,0 +1,75 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>The Noodle Cast</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+body{margin:0;background:#F6F1E9;font-family:Inter,"Segoe UI",sans-serif;color:#1A1A1A}
+main{max-width:960px;margin:0 auto;padding:36px 32px 60px}
+.label{color:#C8452E;font-size:12px;font-weight:700;letter-spacing:.14em;margin-bottom:18px}
+#play{position:fixed;top:24px;right:28px;background:#111;color:#fff;border:0;border-radius:999px;padding:11px 26px;font:600 13px Inter,"Segoe UI",sans-serif;letter-spacing:.08em;cursor:pointer;z-index:5}
+section.char{display:grid;grid-template-columns:300px 1fr;gap:36px;background:#fff;border-radius:24px;padding:28px;margin-bottom:28px;box-shadow:0 6px 24px rgba(0,0,0,.06)}
+.big{width:300px;height:300px;background:#F3EEE6;border-radius:20px;display:flex;align-items:center;justify-content:center}
+.big svg{width:230px;height:253px}
+h1{margin:0;font-size:34px;font-weight:800}
+.sub{color:#7A7A7A;font-size:16px;margin:2px 0 10px}
+p.desc{color:#555;font-size:15px;line-height:1.5;margin:0 0 18px;max-width:480px}
+h3{font-size:11px;letter-spacing:.14em;color:#7A7A7A;font-weight:700;margin:18px 0 10px}
+.pal{display:flex;gap:14px;flex-wrap:wrap}
+.sw{text-align:center;font-size:11px;color:#555;width:62px}
+.sw i{display:block;width:34px;height:34px;border-radius:50%;margin:0 auto 5px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.sw b{display:block;font-weight:600;color:#1A1A1A}
+.poses{display:flex;gap:10px;flex-wrap:wrap}
+.tile{width:92px;text-align:center;font-size:11px;color:#555;cursor:pointer}
+.tile div{width:92px;height:92px;background:#F3EEE6;border-radius:14px;display:flex;align-items:center;justify-content:center;border:2px solid transparent;box-sizing:border-box}
+.tile div svg{width:64px;height:70px}
+.tile.sel div{border-color:#C8452E}
+.tile span{display:block;margin-top:5px}
+.faces{display:flex;gap:14px}
+.face{text-align:center;font-size:11px;color:#555}
+.face div{width:64px;height:64px;border-radius:50%;overflow:hidden;background:#F3EEE6;margin-bottom:5px}
+.face svg{width:100%;height:100%}
+</style></head>
+<body>
+<button id="play">PLAY</button>
+<main>
+<div class="label">THE NOODLE CAST</div>
+<div id="cast"></div>
+</main>
+<script src="renderer/mascot.js"></script>
+<script>
+const N = Noodle;
+const cast = [
+  { key: 'toni', fn: N.toni, name: 'Toni', sub: 'the Rigatoni',
+    desc: 'A ridged tube with an open top. The default noodle, and the one most cards show up with.',
+    pal: [['Body', N.C.body], ['Light', N.C.light], ['Shade', N.C.shade], ['Ridges', N.C.ridge], ['Opening', N.C.open], ['Blush', N.C.blush], ['Ink', N.C.ink]],
+    poses: [['idle', 'Idle'], ['wave', 'Wave'], ['doorway', 'Doorway'], ['chin_tuck', 'Chin tuck'], ['neck_side', 'Neck side'], ['peek', 'Peek']],
+    faces: [['smile', 'Smile'], ['blink', 'Blink'], ['hello', 'Hello'], ['chin_tuck', 'Chin tuck']], crop: [70, 56, 60, 54] },
+  { key: 'sammy', fn: N.sammy, name: 'Sammy', sub: 'the Spaghetti',
+    desc: 'A wavy strand with a curl on top. Same moves as Toni, just a lot more bendy.',
+    pal: [['Noodle', N.SY.body], ['Light', N.SY.light], ['Shade', N.SY.shade], ['Blush', N.C.blush], ['Ink', N.C.ink]],
+    poses: [['idle', 'Idle'], ['wave', 'Wave']],
+    faces: [['smile', 'Smile'], ['blink', 'Blink'], ['hello', 'Hello']], crop: [76, 78, 48, 40] }
+];
+const root = document.getElementById('cast');
+for (const c of cast) {
+  const s = document.createElement('section'); s.className = 'char';
+  s.innerHTML = '<div class="big"></div><div><h1>' + c.name + '</h1><div class="sub">' + c.sub + '</div><p class="desc">' + c.desc + '</p>' +
+    '<h3>PALETTE</h3><div class="pal">' + c.pal.map(p => '<div class="sw"><i style="background:' + p[1] + '"></i><b>' + p[0] + '</b>' + p[1] + '</div>').join('') + '</div>' +
+    '<h3>POSES</h3><div class="poses"></div><h3>FACES</h3><div class="faces"></div></div>';
+  root.appendChild(s);
+  const big = s.querySelector('.big'), poses = s.querySelector('.poses'), faces = s.querySelector('.faces');
+  big.innerHTML = c.fn('idle', 'smile');
+  c.poses.forEach(([k, l], i) => {
+    const t = document.createElement('div'); t.className = 'tile' + (i === 0 ? ' sel' : '');
+    t.innerHTML = '<div>' + c.fn(k, 'smile', { nosticker: false }) + '</div><span>' + l + '</span>';
+    t.onclick = () => { poses.querySelectorAll('.tile').forEach(x => x.classList.remove('sel')); t.classList.add('sel'); big.innerHTML = c.fn(k, 'smile'); };
+    poses.appendChild(t);
+  });
+  c.faces.forEach(([k, l]) => {
+    const f = document.createElement('div'); f.className = 'face';
+    f.innerHTML = '<div>' + c.fn('idle', k, { crop: c.crop, nosticker: true }) + '</div>' + l;
+    faces.appendChild(f);
+  });
+}
+document.getElementById('play').onclick = () => { if (window.noodle) window.noodle.play(); else fetch('http://127.0.0.1:47321/show', { method: 'POST' }).catch(() => {}); };
+</script>
+</body></html>
