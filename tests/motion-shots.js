@@ -19,10 +19,10 @@ const MOMENTS = {
   shoulder_rolls: [0, 2.5, 5, 7.5, 52.5],
   wrist: [0, 25, 48, 60, 80],
   eyes: [0, 10, 50, 90],
-  walk: [0, 12.5, 25, 37.5, 50, 75],
+  walk: [0, 12.5, 25, 37.5, 50, 62.5, 75, 87.5],
   wave: [0, 25, 50, 75]
 };
-const CYCLE_MS = { walk: 1440, wave: 1640 }; // short loops are sampled over their own period, not the exercise length
+const CYCLE_MS = { walk: 900, wave: 1640 }; // short loops are sampled over their own period, not the exercise length
 
 (async () => {
   await app.whenReady();

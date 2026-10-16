@@ -24,9 +24,12 @@
       .mascot{overflow:visible}.mascot .motion-root{transform-box:fill-box;transform-origin:center bottom;animation:noodleBreathe 3.6s ease-in-out infinite}
       .mascot .eyes{transform-box:fill-box;transform-origin:center;animation:noodleBlink 5.4s ease-in-out infinite}
       .mascot.explicit-blink .eyes{animation:none}.mascot .wavearm{animation:noodleWave .82s cubic-bezier(.42,0,.25,1) infinite alternate}
-      .mascot.pose-walk .walk-arm-left,.mascot.pose-walk .walk-leg-right{animation:noodleWalk .72s ease-in-out infinite alternate}
-      .mascot.pose-walk .walk-arm-right,.mascot.pose-walk .walk-leg-left{animation:noodleWalk .72s ease-in-out infinite alternate-reverse}
-      .mascot.pose-walk .motion-root{animation:noodleWalkBob .72s ease-in-out infinite}
+      .mascot.pose-walk .walk-arm-left,.mascot.pose-walk .walk-leg-right{animation:noodleWalk .45s ease-in-out infinite alternate}
+      .mascot.pose-walk .walk-arm-right,.mascot.pose-walk .walk-leg-left{animation:noodleWalk .45s ease-in-out infinite alternate-reverse}
+      .mascot.pose-walk .walk-arm-left,.mascot.pose-walk .walk-arm-right{animation-name:noodleArm}
+      .mascot.pose-walk .walk-foot-right{animation:noodleWalkInv .45s ease-in-out infinite alternate}.mascot.pose-walk .walk-foot-left{animation:noodleWalkInv .45s ease-in-out infinite alternate-reverse}
+      .mascot.pose-walk .walk-sway{animation:noodleSway .45s ease-in-out infinite alternate}.mascot.pose-walk .walk-lines{animation:noodleLines .9s ease-in-out infinite}
+      .mascot.pose-walk .motion-root{animation:noodleWalkBob .45s ease-in-out infinite}
       .mascot.pose-neck_side .motion-root,.mascot.pose-chin_tuck .motion-root,.mascot.pose-doorway .motion-root,.mascot.pose-shoulder_rolls .motion-root,.mascot.pose-wrist .motion-root,.mascot.pose-eyes .motion-root{animation:none}
       .mascot .neck-head{animation:noodleNeck var(--dur,40s) ${EASE} infinite}.mascot .nk-a{animation:noodleNeckA var(--dur,40s) ease infinite}.mascot .nk-b{animation:noodleNeckB var(--dur,40s) ease infinite}
       .mascot .chin-head{animation:noodleChin calc(var(--dur,30s) / 3) cubic-bezier(.45,0,.25,1) infinite}.mascot .chin-cue{animation:noodleChinCue calc(var(--dur,30s) / 3) ease infinite}
@@ -38,7 +41,7 @@
       .mascot .eye-glide{animation:noodleLook var(--dur,20s) ${EASE} infinite}.mascot.pose-eyes .eyes{animation:noodleBlinkOnce var(--dur,20s) ease-in-out infinite}
       .mascot .far-obj{animation:noodleFar var(--dur,20s) ease infinite}
       @keyframes noodleWave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}@keyframes noodleBreathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(1px) scaleY(1.018)}}
-      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2px)}50%{transform:translateY(-1px)}}
+      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}@keyframes noodleWalkInv{from{transform:rotate(22deg)}to{transform:rotate(-22deg)}}@keyframes noodleArm{from{transform:rotate(-25deg)}to{transform:rotate(25deg)}}@keyframes noodleSway{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}@keyframes noodleLines{0%{opacity:0;transform:translateX(6px)}50%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
       @keyframes noodleNeck{0%{transform:rotate(0)}4%,46%{transform:rotate(-18deg)}50%{transform:rotate(0)}54%,96%{transform:rotate(18deg)}100%{transform:rotate(0)}}
       @keyframes noodleNeckA{0%{opacity:0}4%,46%{opacity:1}50%,100%{opacity:0}}@keyframes noodleNeckB{0%,50%{opacity:0}54%,96%{opacity:1}100%{opacity:0}}
       @keyframes noodleChin{0%{transform:translateX(0) rotate(7deg)}14%,86%{transform:translateX(-12px) rotate(0deg)}100%{transform:translateX(0) rotate(7deg)}}@keyframes noodleChinCue{0%,100%{opacity:.2}14%,86%{opacity:1}}
@@ -50,7 +53,7 @@
       @keyframes noodleLook{0%{transform:translateX(0)}5%,95%{transform:translateX(7px)}100%{transform:translateX(0)}}
       @keyframes noodleBlinkOnce{0%,46%{transform:scaleY(1)}50%{transform:scaleY(.08)}54%,100%{transform:scaleY(1)}}
       @keyframes noodleFar{0%,3%{opacity:0;transform:scale(.5)}9%,91%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(.5)}}
-      .mascot .neck-head,.mascot .chin-head,.mascot .pose-body.lean,.mascot .roll-l,.mascot .roll-r,.mascot .wrist-hand,.mascot .eye-glide,.mascot .far-obj,.mascot .wavearm,.mascot [class^=walk-]{will-change:transform}
+      .mascot .neck-head,.mascot .chin-head,.mascot .pose-body.lean,.mascot .roll-l,.mascot .roll-r,.mascot .wrist-hand,.mascot .eye-glide,.mascot .far-obj,.mascot .wavearm,.mascot [class^=walk-]{will-change:transform}.mascot .walk-lines{will-change:opacity,transform}
       .mascot .nk-a,.mascot .nk-b,.mascot .chest-glow,.mascot .roll-a,.mascot .roll-b,.mascot .wrist-a,.mascot .wrist-b,.mascot .chin-cue{will-change:opacity}
       #tile.paused .mascot *{animation-play-state:paused!important}
       @media (prefers-reduced-motion:reduce){.mascot *{animation:none!important}.mascot .motion-root{transform:none!important}
@@ -173,13 +176,17 @@
         post = `<rect x="30" y="136" width="140" height="78" rx="10" fill="#fff" stroke="#DDD7CC" stroke-width="4"/>` + limb('M72 136 h14 M114 136 h14', 10);
         break;
       case 'walk': {
-        const b = tube(78, 44, 3) + face(faceKind, 112, 80, 0.8, -6);
-        const leg = (x, cls) => pivot(x, 144, cls, limb(`M${x} 144 V168`, 8) + limb(`M${x - 3} 172 h11`, 10));
-        const arm = cls => pivot(100, 96, cls, limb('M100 96 L100 122'));
-        legs = leg(89, 'walk-leg-left') + leg(111, 'walk-leg-right');
-        grp = arm('walk-arm-left') + arm('walk-arm-right') + b;
-        tr = 'rotate(4 100 144)';
-        pre = [88, 104, 120].map((y, i) => `<path d="M${14 + i * 6} ${y} h${28 - i * 6}" stroke="#BDB6AA" stroke-width="4" stroke-linecap="round"/>`).join('');
+        // 3/4 view walking to the right: upright body, features shifted toward the walking direction.
+        const cy = 80;
+        const wf = `<ellipse cx="97" cy="${cy + 13}" rx="4.5" ry="3.4" fill="${C.blush}"/><ellipse cx="121" cy="${cy + 13}" rx="3" ry="3" fill="${C.blush}"/>` +
+          `<g class="eyes">${[104, 118].map(x => `<ellipse cx="${x}" cy="${cy}" rx="3.8" ry="5.4" fill="${INK}"/><circle cx="${x + 1.2}" cy="${cy - 2}" r="1.4" fill="#fff"/>`).join('')}</g>` +
+          `<path d="M105 ${cy + 11} H119 Q119 ${cy + 23} 112 ${cy + 23} Q105 ${cy + 23} 105 ${cy + 11} Z" fill="${INK}"/>`;
+        const leg = (x, cls, fcls) => pivot(x, 144, cls, limb(`M${x} 144 V166`, 8) + pivot(x, 166, fcls, limb(`M${x - 4} 172 h13`, 10)));
+        const arm = (x, cls) => pivot(x, 100, cls, limb(`M${x} 100 V130`, 9));
+        legs = leg(88, 'walk-leg-left', 'walk-foot-left') + leg(112, 'walk-leg-right', 'walk-foot-right');
+        grp = tube(78, 44, 3) + wf + arm(75, 'walk-arm-left') + arm(125, 'walk-arm-right');
+        grp = pivot(100, 144, 'walk-sway', grp);
+        pre = `<g class="walk-lines">` + [88, 104, 120].map((y, i) => `<path d="M${14 + i * 6} ${y} h${28 - i * 6}" stroke="#BDB6AA" stroke-width="4" stroke-linecap="round"/>`).join('') + `</g>`;
         break;
       }
     }
