@@ -3,15 +3,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
 html,body{margin:0;background:transparent;overflow:hidden;font-family:Inter,"Segoe UI",sans-serif;user-select:none}
-#card{position:absolute;left:36px;top:36px;width:420px;min-height:170px;box-sizing:border-box;background:#fff;border-radius:22px;box-shadow:0 12px 40px rgba(0,0,0,.18);padding:18px 20px 22px;overflow:hidden;opacity:0;transform:translateX(40px);transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1)}
+#card{position:absolute;left:36px;top:36px;width:420px;min-height:170px;box-sizing:border-box;background:#fff;border-radius:22px;box-shadow:0 12px 40px rgba(0,0,0,.18);padding:18px 20px 22px;overflow:hidden;opacity:0;transform:translateX(40px) scale(.98);transition:opacity .35s ease,transform .42s cubic-bezier(.2,.8,.2,1)}
 #card.in{opacity:1;transform:none}
 .grid{display:grid;grid-template-columns:130px 1fr;gap:16px}
-#tile{width:130px;height:130px;border-radius:16px;background:#F3EEE6;display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+#tile{width:130px;height:130px;border-radius:16px;background:#F3EEE6;display:flex;align-items:center;justify-content:center;transition:opacity .22s ease,transform .22s ease}
+#tile.swapping{opacity:0;transform:scale(.96)}
 #tile svg{width:112px;height:123px}
 .right{position:relative;min-height:130px}
 .content,.entry{transition:opacity .45s ease}
 .content{display:flex;flex-direction:column;gap:4px;opacity:0}
-.entry{position:absolute;inset:0;pointer-events:none;display:flex;align-items:center;font-size:20px;font-weight:700;color:#1A1A1A}
+.entry{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;color:#1A1A1A}.entry-title{font-size:20px;font-weight:700}.entry-sub{font-size:13px;font-weight:500;color:#7A7A7A;margin-top:5px}
 .row1{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 #title{font-size:20px;font-weight:700;color:#1A1A1A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #counter{font-size:14px;color:#7A7A7A;white-space:nowrap}
@@ -30,10 +31,11 @@ button{font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;
 .open #steps{display:block}
 #bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:#D9534F}
 @keyframes fill{from{width:0}to{width:100%}}
+@media (prefers-reduced-motion:reduce){#card,#tile,.content,.entry{transition:none!important}#bar{animation:none!important}}
 </style></head>
 <body>
 <div id="card"><div class="grid"><div id="tile"></div>
-<div class="right"><div class="entry" id="entry"></div>
+<div class="right"><div class="entry" id="entry"><div class="entry-title"></div><div class="entry-sub"></div></div>
 <div class="content" id="content">
 <div class="row1"><span id="title"></span><span id="counter"></span></div>
 <div id="instr"></div><div id="dur"></div>

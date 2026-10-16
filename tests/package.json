@@ -1,0 +1,5 @@
+{
+  "name": "noodle-motion-check",
+  "private": true,
+  "main": "motion-check.js"
+}

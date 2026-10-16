@@ -8,7 +8,9 @@ A small Windows tray app that brings up a friendly, timed stretch-break card. It
   <img src="docs/images/howto.png" alt="Noodle's expanded how-to instructions" width="492">
 </p>
 
-The reminder begins with an “It’s time” prompt, then opens the timed card and its optional how-to steps.
+<p align="center"><img src="docs/images/motion.gif" alt="Noodle wave motion preview" width="260"></p>
+
+The reminder begins with an “It’s time to stretch!” prompt and a short subtitle, then opens the timed card and its optional how-to steps. Toni waves, breathes, blinks, walks, and makes small controlled exercise movements; the card uses smooth entry and pose transitions. When Windows asks for reduced motion, Noodle keeps clear static poses and skips the typewriter effect.
 
 ## What it does
 
@@ -46,6 +48,7 @@ Toni and Sammy, the two locally rendered mascot characters, are built from the a
 - `exercises.json` defines the title, instruction, duration, mascot pose, and expandable steps. The app reads it at each session.
 - `config.json` controls the cooldown, start delay, local port, walk cadence, screen-time reminder, and idle reset. The supplied defaults set `screen_time_min` to `30` and `idle_reset_min` to `5`.
 - `npm run screenshots` writes fresh PNGs to `screenshots/`.
+- `npm test` checks the renderer's live animation layers and its reduced-motion fallback.
 
 ## Optional Claude Code hooks
 

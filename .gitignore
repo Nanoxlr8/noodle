@@ -8,3 +8,8 @@ dist/
 out/
 build/
 *.log
+.test-profile/
+.preview-profile/
+.test-cli-profile/
+.preview-cli-profile/
+.motion-check-result.json

@@ -1,11 +1,12 @@
 {
   "name": "noodle",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Noodle - a floating stretch-break companion for Windows",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "screenshots": "electron . --screenshot"
+    "screenshots": "electron . --screenshot",
+    "test": "electron ./tests"
   },
   "devDependencies": {
     "electron": "44.7.2"
