@@ -14,7 +14,7 @@ async function inspect() {
     const an = (h, sel) => getComputedStyle(h.querySelector(sel)).animationName;
     const walk = mk('walk'), neck = mk('neck_side'), chin = mk('chin_tuck'), door = mk('doorway'), rolls = mk('shoulder_rolls'), wrist = mk('wrist'), eyes = mk('eyes');
     const wave = Noodle.toni('wave', 'hello'); const staticBlink = Noodle.toni('idle', 'blink');
-    return { motion: an(walk, '.motion-root'), limb: an(walk, '.walk-leg-left'), wave: wave.includes('steps('), blink: staticBlink.includes('explicit-blink'),
+    return { motion: an(walk, '.walk-bob'), limb: an(walk, '.walk-leg-near'), wave: wave.includes('steps('), blink: staticBlink.includes('explicit-blink'),
       neck: an(neck, '.neck-head'), neckRoot: an(neck, '.motion-root'), chin: an(chin, '.chin-head'), door: an(door, '.pose-body'), rolls: an(rolls, '.roll-l'),
       wrist: an(wrist, '.wrist-hand-a'), eyes: an(eyes, '.eye-glide'), eyeBlink: an(eyes, '.eyes') };
   })()`);
