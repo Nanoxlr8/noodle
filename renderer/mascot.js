@@ -21,6 +21,7 @@
     s.id = 'noodle-mascot-css';
     const EASE = 'cubic-bezier(.45,0,.55,1)';
     s.textContent = `
+      .mascot .wrist-cue,.mascot .wrist-help{animation:noodleWristCue var(--dur,30s) ease infinite}
       .mascot{overflow:visible}.mascot .motion-root{transform-box:fill-box;transform-origin:center bottom;animation:noodleBreathe 3.6s ease-in-out infinite}
       .mascot .eyes{transform-box:fill-box;transform-origin:center;animation:noodleBlink 5.4s ease-in-out infinite}
       .mascot.explicit-blink .eyes{animation:none}.mascot .wavearm{animation:noodleWave .82s cubic-bezier(.42,0,.25,1) infinite alternate}
@@ -49,7 +50,7 @@
       @keyframes noodleRollL{${rollKF(-1)}}@keyframes noodleRollR{${rollKF(1)}}
       @keyframes noodleRollA{0%,44%{opacity:1}56%,94%{opacity:0}100%{opacity:1}}@keyframes noodleRollB{0%,44%{opacity:0}56%,94%{opacity:1}100%{opacity:0}}
       @keyframes noodleWristShowA{0%,44%{opacity:1}52%,96%{opacity:0}100%{opacity:1}}@keyframes noodleWristShowB{0%,44%{opacity:0}52%,96%{opacity:1}100%{opacity:0}}
-      @keyframes noodleWristA{0%{transform:rotate(0)}8%,42%{transform:rotate(-70deg)}50%,54%{transform:rotate(0)}62%,94%{transform:rotate(-70deg)}100%{transform:rotate(0)}}@keyframes noodleWristB{0%,50%{transform:rotate(0)}58%,92%{transform:rotate(-55deg)}100%{transform:rotate(0)}}
+      @keyframes noodleWristA{0%{transform:rotate(90deg)}10%,42%{transform:rotate(-12deg)}50%,54%{transform:rotate(90deg)}64%,94%{transform:rotate(-12deg)}100%{transform:rotate(90deg)}}@keyframes noodleWristCue{0%,6%{opacity:0}12%,42%{opacity:1}48%,58%{opacity:0}66%,94%{opacity:1}100%{opacity:0}}@keyframes noodleWristB{0%,50%{transform:rotate(0)}58%,92%{transform:rotate(-55deg)}100%{transform:rotate(0)}}
       @keyframes noodleLook{0%{transform:translateX(0)}5%,95%{transform:translateX(7px)}100%{transform:translateX(0)}}
       @keyframes noodleBlinkOnce{0%,46%{transform:scaleY(1)}50%{transform:scaleY(.08)}54%,100%{transform:scaleY(1)}}
       @keyframes noodleFar{0%,3%{opacity:0;transform:scale(.5)}9%,91%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(.5)}}
@@ -58,7 +59,7 @@
       #tile.paused .mascot *{animation-play-state:paused!important}
       @media (prefers-reduced-motion:reduce){.mascot *{animation:none!important}.mascot .motion-root{transform:none!important}
         .mascot .neck-head{transform:rotate(-18deg)}.mascot .ct-head{transform:translateX(-14px)}.mascot .ct-neck{transform:skewX(41deg)}.mascot .chin-fold{opacity:1}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .chest-glow{opacity:.95}
-        .mascot .wrist-hand{transform:rotate(-35deg)}.mascot .eye-glide{transform:translateX(7px)}}
+        .mascot .wrist-hand{transform:rotate(-12deg)}.mascot .wrist-cue,.mascot .wrist-help{opacity:1}.mascot .eye-glide{transform:translateX(7px)}}
     `;
     document.head.appendChild(s);
   }
@@ -164,18 +165,20 @@
           `<g class="roll-a">${a}</g><g class="roll-b" opacity="0"><g transform="translate(${2 * cx} 0) scale(-1 1)">${a}</g></g>`);
       }
       case 'wrist': {
-        // Side profile facing right. Near arm straight out at shoulder height, palm down; the hand bends up at the wrist
-        // (fingers toward the sky) and the far hand holds the fingers. Two 15 s holds with a short release between.
-        const FARC = '#6B5B4E';
+        // Side profile facing right, cartoon-glove hands so the fingers read clearly at card size.
+        // The arm goes straight out; the hand starts fingers-forward, then bends up and back at the wrist while the other
+        // hand pulls the fingers toward the body (red curved arrow). Two 15 s holds.
+        const GLOVE = '#FFF8EC', st = `stroke="${INK}" stroke-width="3" stroke-linejoin="round"`;
         const lg = limb('M94 144 V172', 8) + limb('M106 144 V172', 8) + limb('M90 175 h14', 10) + limb('M102 175 h14', 10);
         const face = profileFace().replace(/<path d="M122 [^>]*Z"[^>]*\/>/, '') + ear(97, 90);
-        // Mitten hand in Toni's ink style: a rounded palm with a thumb nub, fingers pointing forward; it bends up at the wrist.
-        const hand = `<path d="M152 100 H170" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>` +
-          `<path d="M157 93 Q160 86 165 89" fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>` +
-          `<path d="M163 100 H171" stroke="#5A4A3E" stroke-width="2" stroke-linecap="round"/>` +
-          `<circle cx="174" cy="96" r="6.5" fill="${FARC}" stroke="${INK}" stroke-width="2"/>`;
-        const farArm = `<path d="M100 108 Q128 128 156 112" fill="none" stroke="${FARC}" stroke-width="7" stroke-linecap="round"/>`;
-        return out(lg + `<g transform="translate(0 14)">${farArm}</g>` + tube(78, 44, 3) + face + `<g transform="translate(0 14)">${limb('M110 100 H152')}${pivot(152, 100, 'wrist-hand wrist-hand-a', hand)}</g>`);
+        // Hand drawn fingers-up around the wrist at (150,116); the CSS rotation lays it forward at rest.
+        // Powerpuff-style stub hands: one rounded paddle, no fingers.
+        const paddle = `<ellipse cx="152" cy="100" rx="9.5" ry="16" fill="${C.light}" ${st}/>`;
+        const help = `<g class="wrist-help"><circle cx="164" cy="90" r="8.5" fill="${C.light}" ${st}/></g>`;
+        const hand = paddle + help;
+        const cue = `<g class="wrist-cue"><path d="M184 84 Q186 64 166 62" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M172 56 L165 62 L172 68" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+        const farArm = `<path d="M100 120 Q132 132 166 100" fill="none" stroke="#6B5B4E" stroke-width="7" stroke-linecap="round" class="wrist-help"/>`;
+        return out(lg + farArm + tube(78, 44, 3) + face + limb('M110 116 H146') + pivot(150, 116, 'wrist-hand wrist-hand-a', hand) + cue);
       }
       case 'eyes': {
         const sun = `<circle cx="178" cy="34" r="6" fill="#F5C86B" stroke="${INK}" stroke-width="3"/>`;
