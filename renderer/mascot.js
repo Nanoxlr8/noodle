@@ -41,7 +41,7 @@
       .mascot .eye-glide{animation:noodleLook var(--dur,20s) ${EASE} infinite}.mascot.pose-eyes .eyes{animation:noodleBlinkOnce var(--dur,20s) ease-in-out infinite}
       .mascot .far-obj{animation:noodleFar var(--dur,20s) ease infinite}
       @keyframes noodleWave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}@keyframes noodleBreathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(1px) scaleY(1.018)}}
-      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}@keyframes noodleWalkInv{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}@keyframes noodleArm{from{transform:rotate(-28deg)}to{transform:rotate(28deg)}}@keyframes noodleLines{0%{opacity:0;transform:translateX(6px)}50%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2.5px)}50%{transform:translateY(0)}}
+      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}@keyframes noodleWalkInv{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}@keyframes noodleArm{from{transform:rotate(-38deg)}to{transform:rotate(38deg)}}@keyframes noodleLines{0%{opacity:0;transform:translateX(6px)}50%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2.5px)}50%{transform:translateY(0)}}
       @keyframes noodleNeck{0%{transform:rotate(0)}4%,46%{transform:rotate(-18deg)}50%{transform:rotate(0)}54%,96%{transform:rotate(18deg)}100%{transform:rotate(0)}}
       @keyframes noodleNeckA{0%{opacity:0}4%,46%{opacity:1}50%,100%{opacity:0}}@keyframes noodleNeckB{0%,50%{opacity:0}54%,96%{opacity:1}100%{opacity:0}}
       @keyframes noodleChin{0%{transform:translateX(0) rotate(7deg)}14%,86%{transform:translateX(-12px) rotate(0deg)}100%{transform:translateX(0) rotate(7deg)}}@keyframes noodleChinCue{0%,100%{opacity:.2}14%,86%{opacity:1}}
@@ -179,14 +179,14 @@
         // Side-view walk toward the right. Hip pivot at (100,144), shoulder pivot at (100,98); far limbs are thinner and muted.
         const FAR = '#6B5B4E';
         const limbC = (d, w, c, op = 1) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"/>`;
-        const leg = (cls, fcls, w, c) => pivot(100, 144, cls, limbC('M100 144 V166', w, c) + pivot(100, 166, fcls, limbC('M96 172 h13', w + 2, c)));
-        const arm = (cls, w, c) => pivot(100, 112, cls, limbC('M100 112 V138', w, c));
+        const leg = (cls, fcls, w, c) => pivot(100, 140, cls, limbC('M100 140 V169', w, c) + pivot(100, 172, fcls, limbC('M97 174 h14', w + 2, c)));
+        const arm = (cls, w, c) => pivot(100, 100, cls, limbC('M100 100 Q98 116 101 128', w, c) + `<circle cx="101" cy="130" r="${w / 2 + 2}" fill="${c}"/>`);
         const bodyW = tube(78, 44, 3) + profileFace() + ear(97, 90);
         pre = `<g class="walk-lines">` + [88, 104, 120].map((y, i) => `<path d="M${14 + i * 6} ${y} h${28 - i * 6}" stroke="#BDB6AA" stroke-width="4" stroke-linecap="round"/>`).join('') + `</g>`;
         legs = leg('walk-leg-far', 'walk-foot-far', 6, FAR);
         grp = `<g transform="rotate(3 100 175)"><g class="walk-bob">${arm('walk-arm-far', 6, FAR) .replace('','')}</g></g>`;
         // draw order: far leg, body, far arm, near arm, near leg
-        const upper = `<g transform="rotate(3 100 175)"><g class="walk-bob">${bodyW}${arm('walk-arm-far', 6, FAR)}${arm('walk-arm-near', 9, INK)}</g></g>`;
+        const upper = `<g transform="rotate(3 100 175)"><g class="walk-bob">${arm('walk-arm-far', 7, FAR)}${bodyW}${arm('walk-arm-near', 8, INK)}</g></g>`;
         return out(pre + legs + upper + leg('walk-leg-near', 'walk-foot-near', 8, INK));
       }
     }
