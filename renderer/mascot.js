@@ -21,7 +21,6 @@
     s.id = 'noodle-mascot-css';
     const EASE = 'cubic-bezier(.45,0,.55,1)';
     s.textContent = `
-      .mascot .wrist-cue,.mascot .wrist-help{animation:noodleWristCue var(--dur,30s) ease infinite}
       .mascot{overflow:visible}.mascot .motion-root{transform-box:fill-box;transform-origin:center bottom;animation:noodleBreathe 3.6s ease-in-out infinite}
       .mascot .eyes{transform-box:fill-box;transform-origin:center;animation:noodleBlink 5.4s ease-in-out infinite}
       .mascot.explicit-blink .eyes{animation:none}.mascot .wavearm{animation:noodleWave .82s cubic-bezier(.42,0,.25,1) infinite alternate}
@@ -31,13 +30,13 @@
       .mascot.pose-walk .walk-arm-near,.mascot.pose-walk .walk-arm-far{animation-name:noodleArm}
       .mascot.pose-walk .walk-foot-near{animation:noodleWalkInv .45s ease-in-out infinite alternate}.mascot.pose-walk .walk-foot-far{animation:noodleWalkInv .45s ease-in-out infinite alternate-reverse}
       .mascot.pose-walk .walk-bob{animation:noodleWalkBob .45s ease-in-out infinite}.mascot.pose-walk .walk-lines{animation:noodleLines .9s ease-in-out infinite}
-      .mascot.pose-neck_side .motion-root,.mascot.pose-chin_tuck .motion-root,.mascot.pose-doorway .motion-root,.mascot.pose-shoulder_rolls .motion-root,.mascot.pose-wrist .motion-root,.mascot.pose-eyes .motion-root{animation:none}
+      .mascot.pose-neck_side .motion-root,.mascot.pose-chin_tuck .motion-root,.mascot.pose-thoracic .motion-root,.mascot.pose-doorway .motion-root,.mascot.pose-shoulder_rolls .motion-root,.mascot.pose-wrist .motion-root,.mascot.pose-eyes .motion-root{animation:none}
       .mascot .neck-head{animation:noodleNeck var(--dur,40s) ${EASE} infinite}.mascot .nk-a{animation:noodleNeckA var(--dur,40s) ease infinite}.mascot .nk-b{animation:noodleNeckB var(--dur,40s) ease infinite}
       .mascot .ct-head{transform-box:view-box;animation:noodleCtHead calc(var(--dur,30s) / 3) cubic-bezier(.45,0,.25,1) infinite}.mascot .ct-neck{transform-box:view-box;transform-origin:100px 108px;animation:noodleCtNeck calc(var(--dur,30s) / 3) cubic-bezier(.45,0,.25,1) infinite}.mascot .chin-cue,.mascot .chin-fold{animation:noodleChinCue calc(var(--dur,30s) / 3) ease infinite}
       .mascot .pose-body.lean{animation:noodleLean var(--dur,30s) ${EASE} infinite}.mascot .chest-glow{animation:noodleGlow var(--dur,30s) ease infinite}
       .mascot .roll-l{animation:noodleRollL var(--dur,20s) linear infinite}.mascot .roll-r{animation:noodleRollR var(--dur,20s) linear infinite}
       .mascot .roll-a{animation:noodleRollA var(--dur,20s) ease infinite}.mascot .roll-b{animation:noodleRollB var(--dur,20s) ease infinite}
-      .mascot .wrist-a{animation:noodleWristShowA var(--dur,30s) ease infinite}.mascot .wrist-b{animation:noodleWristShowB var(--dur,30s) ease infinite}
+      .mascot .th-arch{transform-box:view-box;transform-origin:100px 140px;animation:noodleArch calc(var(--dur,40s) / 10) cubic-bezier(.45,0,.25,1) infinite}.mascot .th-cue{animation:noodleArchCue calc(var(--dur,40s) / 10) ease infinite}.mascot .wrist-a{animation:noodleWristShowA var(--dur,30s) ease infinite}.mascot .wrist-b{animation:noodleWristShowB var(--dur,30s) ease infinite}
       .mascot .wrist-hand-a{animation:noodleWristA var(--dur,30s) ${EASE} infinite}.mascot .wrist-hand-b{animation:noodleWristB var(--dur,30s) ${EASE} infinite}
       .mascot .eye-glide{animation:noodleLook var(--dur,20s) ${EASE} infinite}.mascot.pose-eyes .eyes{animation:noodleBlinkOnce var(--dur,20s) ease-in-out infinite}
       .mascot .far-obj{animation:noodleFar var(--dur,20s) ease infinite}
@@ -45,7 +44,7 @@
       @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}@keyframes noodleWalkInv{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}@keyframes noodleArm{from{transform:rotate(-38deg)}to{transform:rotate(38deg)}}@keyframes noodleLines{0%{opacity:0;transform:translateX(6px)}50%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2.5px)}50%{transform:translateY(0)}}
       @keyframes noodleNeck{0%{transform:rotate(0)}4%,46%{transform:rotate(-18deg)}50%{transform:rotate(0)}54%,96%{transform:rotate(18deg)}100%{transform:rotate(0)}}
       @keyframes noodleNeckA{0%{opacity:0}4%,46%{opacity:1}50%,100%{opacity:0}}@keyframes noodleNeckB{0%,50%{opacity:0}54%,96%{opacity:1}100%{opacity:0}}
-      @keyframes noodleCtHead{0%{transform:translateX(0)}18%,82%{transform:translateX(-14px)}100%{transform:translateX(0)}}@keyframes noodleCtNeck{0%{transform:skewX(0)}18%,82%{transform:skewX(41deg)}100%{transform:skewX(0)}}@keyframes noodleChin{0%{transform:translateX(0)}18%,82%{transform:translateX(-7px)}100%{transform:translateX(0)}}@keyframes noodleChinCue{0%,100%{opacity:.2}14%,86%{opacity:1}}
+      @keyframes noodleCtHead{0%{transform:translateX(0)}18%,82%{transform:translateX(-14px)}100%{transform:translateX(0)}}@keyframes noodleCtNeck{0%{transform:skewX(0)}18%,82%{transform:skewX(41deg)}100%{transform:skewX(0)}}@keyframes noodleArch{0%,8%{transform:rotate(0)}40%,62%{transform:rotate(-20deg)}94%,100%{transform:rotate(0)}}@keyframes noodleArchCue{0%,10%,90%,100%{opacity:.15}40%,62%{opacity:1}}@keyframes noodleChin{0%{transform:translateX(0)}18%,82%{transform:translateX(-7px)}100%{transform:translateX(0)}}@keyframes noodleChinCue{0%,100%{opacity:.2}14%,86%{opacity:1}}
       @keyframes noodleLean{0%{transform:rotate(0)}13.3%,80%{transform:rotate(10deg)}100%{transform:rotate(0)}}@keyframes noodleGlow{0%{opacity:0}13.3%,80%{opacity:.95}100%{opacity:0}}
       @keyframes noodleRollL{${rollKF(-1)}}@keyframes noodleRollR{${rollKF(1)}}
       @keyframes noodleRollA{0%,44%{opacity:1}56%,94%{opacity:0}100%{opacity:1}}@keyframes noodleRollB{0%,44%{opacity:0}56%,94%{opacity:1}100%{opacity:0}}
@@ -54,12 +53,12 @@
       @keyframes noodleLook{0%{transform:translateX(0)}5%,95%{transform:translateX(7px)}100%{transform:translateX(0)}}
       @keyframes noodleBlinkOnce{0%,46%{transform:scaleY(1)}50%{transform:scaleY(.08)}54%,100%{transform:scaleY(1)}}
       @keyframes noodleFar{0%,3%{opacity:0;transform:scale(.5)}9%,91%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(.5)}}
-      .mascot .neck-head,.mascot .ct-head,.mascot .ct-neck,.mascot .pose-body.lean,.mascot .roll-l,.mascot .roll-r,.mascot .wrist-hand,.mascot .eye-glide,.mascot .far-obj,.mascot .wavearm,.mascot [class^=walk-]{will-change:transform}.mascot .walk-lines{will-change:opacity,transform}
+      .mascot .neck-head,.mascot .th-arch,.mascot .ct-head,.mascot .ct-neck,.mascot .pose-body.lean,.mascot .roll-l,.mascot .roll-r,.mascot .wrist-hand,.mascot .eye-glide,.mascot .far-obj,.mascot .wavearm,.mascot [class^=walk-]{will-change:transform}.mascot .walk-lines{will-change:opacity,transform}
       .mascot .nk-a,.mascot .nk-b,.mascot .chest-glow,.mascot .roll-a,.mascot .roll-b,.mascot .wrist-a,.mascot .wrist-b,.mascot .chin-cue{will-change:opacity}
       #tile.paused .mascot *{animation-play-state:paused!important}
       @media (prefers-reduced-motion:reduce){.mascot *{animation:none!important}.mascot .motion-root{transform:none!important}
         .mascot .neck-head{transform:rotate(-18deg)}.mascot .ct-head{transform:translateX(-14px)}.mascot .ct-neck{transform:skewX(41deg)}.mascot .chin-fold{opacity:1}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .chest-glow{opacity:.95}
-        .mascot .wrist-hand{transform:rotate(-12deg)}.mascot .wrist-cue,.mascot .wrist-help{opacity:1}.mascot .eye-glide{transform:translateX(7px)}}
+        .mascot .wrist-hand{transform:rotate(-12deg)}.mascot .th-arch{transform:rotate(-20deg)}.mascot .th-cue{opacity:1}.mascot .wrist-cue,.mascot .wrist-help{opacity:1}.mascot .eye-glide{transform:translateX(7px)}}
     `;
     document.head.appendChild(s);
   }
@@ -71,7 +70,7 @@
   const dot = (x, y) => `<circle cx="${x}" cy="${y}" r="6" fill="${C.red}" stroke="#fff" stroke-width="2"/>`;
   const arrow = (x1, y, x2) => { const s = Math.sign(x2 - x1); return `<path d="M${x1} ${y} H${x2} M${x2 - 8 * s} ${y - 7} L${x2} ${y} L${x2 - 8 * s} ${y + 7}" fill="none" stroke="${C.red}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`; };
   const arrowDown = (x, y1, y2) => `<path d="M${x} ${y1} V${y2} M${x - 7} ${y2 - 8} L${x} ${y2} L${x + 7} ${y2 - 8}" fill="none" stroke="${C.red}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
-  const DUR = { neck_side: 40, chin_tuck: 30, doorway: 30, shoulder_rolls: 20, wrist: 30, eyes: 20 };
+  const DUR = { neck_side: 40, chin_tuck: 30, doorway: 30, shoulder_rolls: 20, thoracic: 40, eyes: 20 };
 
   function face(kind, cx, cy, s = 1, dx = 0, glide = false) {
     const ex = 11;
@@ -164,21 +163,20 @@
         return out(legs + `<g class="roll-l">${limb('M73 92 Q55 106 57 130')}</g><g class="roll-r">${limb('M127 92 Q145 106 143 130')}</g>` + front +
           `<g class="roll-a">${a}</g><g class="roll-b" opacity="0"><g transform="translate(${2 * cx} 0) scale(-1 1)">${a}</g></g>`);
       }
-      case 'wrist': {
-        // Side profile facing right, cartoon-glove hands so the fingers read clearly at card size.
-        // The arm goes straight out; the hand starts fingers-forward, then bends up and back at the wrist while the other
-        // hand pulls the fingers toward the body (red curved arrow). Two 15 s holds.
-        const GLOVE = '#FFF8EC', st = `stroke="${INK}" stroke-width="3" stroke-linejoin="round"`;
-        const lg = limb('M94 144 V172', 8) + limb('M106 144 V172', 8) + limb('M90 175 h14', 10) + limb('M102 175 h14', 10);
+      case 'thoracic': {
+        // Seated thoracic extension, side profile facing right (from the promo): Toni sits on a chair with hands laced
+        // behind the head, elbows forward, and arches the upper back over the chair back, 10 slow reps.
+        const CH = '#C9C2B6';
+        const chair = limb('M72 92 V178', 6).replace(INK, CH) + limb('M70 141 H120', 6).replace(INK, CH) + limb('M116 141 V178', 5).replace(INK, CH) + limb('M76 141 V178', 5).replace(INK, CH);
+        const legsSeat = limb('M106 138 H138', 10) + limb('M138 138 V172', 9) + limb('M135 175 h15', 10);
         const face = profileFace().replace(/<path d="M122 [^>]*Z"[^>]*\/>/, '') + ear(97, 90);
-        // Hand drawn fingers-up around the wrist at (150,116); the CSS rotation lays it forward at rest.
-        // Powerpuff-style stub hands: one rounded paddle, no fingers.
-        const paddle = `<ellipse cx="152" cy="100" rx="9.5" ry="16" fill="${C.light}" ${st}/>`;
-        const help = `<g class="wrist-help"><circle cx="164" cy="90" r="8.5" fill="${C.light}" ${st}/></g>`;
-        const hand = paddle + help;
-        const cue = `<g class="wrist-cue"><path d="M184 84 Q186 64 166 62" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M172 56 L165 62 L172 68" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
-        const farArm = `<path d="M100 120 Q132 132 166 100" fill="none" stroke="#6B5B4E" stroke-width="7" stroke-linecap="round" class="wrist-help"/>`;
-        return out(lg + farArm + tube(78, 44, 3) + face + limb('M110 116 H146') + pivot(150, 116, 'wrist-hand wrist-hand-a', hand) + cue);
+        // Hands are behind the head, so only the elbow pokes out in front of the face and a hand peeks out behind.
+        const eid = 'thel' + (++uid);
+        const elbow = `<defs><clipPath id="${eid}"><rect x="121" y="40" width="40" height="60"/></clipPath></defs><path clip-path="url(#${eid})" d="M112 52 L138 70 L112 90 Z" fill="${INK}"/>`;
+        const handBack = `<circle cx="78" cy="58" r="7" fill="${INK}"/>`;
+        const upper = `<g class="th-arch">${handBack}${tube(78, 44, 3)}${face}${elbow}</g>`;
+        const cue = `<g class="th-cue"><path d="M62 24 Q40 24 34 46" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M27 40 L34 47 L41 40" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+        return out(chair + upper + legsSeat + cue);
       }
       case 'eyes': {
         const sun = `<circle cx="178" cy="34" r="6" fill="#F5C86B" stroke="${INK}" stroke-width="3"/>`;
