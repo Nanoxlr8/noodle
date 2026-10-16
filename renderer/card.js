@@ -21,8 +21,9 @@ function swapTile(pose, face, token = run, ex = null) {
   const timer = setTimeout(() => {
     swapTimers = swapTimers.filter(x => x !== timer);
     if (token !== run) return;
-    setTile(pose, face, ex); t.classList.remove('swapping');
+    setTile(pose, face, ex);
     if (ex && exStart) syncAnimations(Date.now() - exStart);
+    t.classList.remove('swapping');
   }, reducedMotion ? 0 : 180);
   swapTimers.push(timer);
 }

@@ -8,7 +8,9 @@
   function rollKF(side) {
     let out = '';
     for (let i = 0; i <= RROLLS * RN; i++) {
-      const r = Math.min(Math.floor(i / RN), RROLLS - 1), p = i === RROLLS * RN ? 1 : (i % RN) / RN, dir = r < RROLLS / 2 ? 1 : -1, th = 2 * Math.PI * p;
+      const r = Math.min(Math.floor(i / RN), RROLLS - 1); let p = i === RROLLS * RN ? 1 : (i % RN) / RN;
+      if (r === 4 || r === 9) p = Math.sin(p * Math.PI / 2); else if (r === 0 || r === 5) p = 1 - Math.cos(p * Math.PI / 2);
+      const dir = r < RROLLS / 2 ? 1 : -1, th = 2 * Math.PI * p;
       out += `${(i / (RROLLS * RN) * 100).toFixed(3)}%{transform:translate(${(side * dir * RLR * Math.sin(th)).toFixed(2)}px,${(-RLR * (1 - Math.cos(th))).toFixed(2)}px)}`;
     }
     return out;
@@ -24,10 +26,10 @@
       .mascot.explicit-blink .eyes{animation:none}.mascot .wavearm{animation:noodleWave .82s cubic-bezier(.42,0,.25,1) infinite alternate}
       .mascot.pose-walk .walk-arm-left,.mascot.pose-walk .walk-leg-right{animation:noodleWalk .72s ease-in-out infinite alternate}
       .mascot.pose-walk .walk-arm-right,.mascot.pose-walk .walk-leg-left{animation:noodleWalk .72s ease-in-out infinite alternate-reverse}
-      .mascot.pose-walk .motion-root{animation:noodleWalkBob .72s ease-in-out infinite alternate}
+      .mascot.pose-walk .motion-root{animation:noodleWalkBob .72s ease-in-out infinite}
       .mascot.pose-neck_side .motion-root,.mascot.pose-chin_tuck .motion-root,.mascot.pose-doorway .motion-root,.mascot.pose-shoulder_rolls .motion-root,.mascot.pose-wrist .motion-root,.mascot.pose-eyes .motion-root{animation:none}
       .mascot .neck-head{animation:noodleNeck var(--dur,40s) ${EASE} infinite}.mascot .nk-a{animation:noodleNeckA var(--dur,40s) ease infinite}.mascot .nk-b{animation:noodleNeckB var(--dur,40s) ease infinite}
-      .mascot .chin-head{animation:noodleChin calc(var(--dur,30s) / 3) ${EASE} infinite}.mascot .chin-cue{animation:noodleChinCue calc(var(--dur,30s) / 3) ease infinite}
+      .mascot .chin-head{animation:noodleChin calc(var(--dur,30s) / 3) cubic-bezier(.45,0,.25,1) infinite}.mascot .chin-cue{animation:noodleChinCue calc(var(--dur,30s) / 3) ease infinite}
       .mascot .pose-body.lean{animation:noodleLean var(--dur,30s) ${EASE} infinite}.mascot .chest-glow{animation:noodleGlow var(--dur,30s) ease infinite}
       .mascot .roll-l{animation:noodleRollL var(--dur,20s) linear infinite}.mascot .roll-r{animation:noodleRollR var(--dur,20s) linear infinite}
       .mascot .roll-a{animation:noodleRollA var(--dur,20s) ease infinite}.mascot .roll-b{animation:noodleRollB var(--dur,20s) ease infinite}
@@ -36,22 +38,24 @@
       .mascot .eye-glide{animation:noodleLook var(--dur,20s) ${EASE} infinite}.mascot.pose-eyes .eyes{animation:noodleBlinkOnce var(--dur,20s) ease-in-out infinite}
       .mascot .far-obj{animation:noodleFar var(--dur,20s) ease infinite}
       @keyframes noodleWave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}@keyframes noodleBreathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(1px) scaleY(1.018)}}
-      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}@keyframes noodleWalkBob{from{transform:translateY(0) rotate(-1deg)}to{transform:translateY(3px) rotate(1deg)}}
+      @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2px)}50%{transform:translateY(-1px)}}
       @keyframes noodleNeck{0%{transform:rotate(0)}4%,46%{transform:rotate(-18deg)}50%{transform:rotate(0)}54%,96%{transform:rotate(18deg)}100%{transform:rotate(0)}}
       @keyframes noodleNeckA{0%{opacity:0}4%,46%{opacity:1}50%,100%{opacity:0}}@keyframes noodleNeckB{0%,50%{opacity:0}54%,96%{opacity:1}100%{opacity:0}}
-      @keyframes noodleChin{0%{transform:translateX(0)}12%,88%{transform:translateX(-8px)}100%{transform:translateX(0)}}@keyframes noodleChinCue{0%,100%{opacity:.2}12%,88%{opacity:1}}
+      @keyframes noodleChin{0%{transform:translateX(0) rotate(7deg)}14%,86%{transform:translateX(-12px) rotate(0deg)}100%{transform:translateX(0) rotate(7deg)}}@keyframes noodleChinCue{0%,100%{opacity:.2}14%,86%{opacity:1}}
       @keyframes noodleLean{0%{transform:rotate(0)}13.3%,80%{transform:rotate(10deg)}100%{transform:rotate(0)}}@keyframes noodleGlow{0%{opacity:0}13.3%,80%{opacity:.95}100%{opacity:0}}
       @keyframes noodleRollL{${rollKF(-1)}}@keyframes noodleRollR{${rollKF(1)}}
-      @keyframes noodleRollA{0%,48%{opacity:1}50%,100%{opacity:0}}@keyframes noodleRollB{0%,48%{opacity:0}50%,100%{opacity:1}}
-      @keyframes noodleWristShowA{0%,48%{opacity:1}50%,96%{opacity:0}100%{opacity:1}}@keyframes noodleWristShowB{0%,50%{opacity:0}52%,96%{opacity:1}98%,100%{opacity:0}}
-      @keyframes noodleWristA{0%{transform:rotate(0)}5%,44%{transform:rotate(35deg)}48%,100%{transform:rotate(0)}}@keyframes noodleWristB{0%,52%{transform:rotate(0)}57%,94%{transform:rotate(35deg)}98%,100%{transform:rotate(0)}}
+      @keyframes noodleRollA{0%,44%{opacity:1}56%,94%{opacity:0}100%{opacity:1}}@keyframes noodleRollB{0%,44%{opacity:0}56%,94%{opacity:1}100%{opacity:0}}
+      @keyframes noodleWristShowA{0%,44%{opacity:1}52%,96%{opacity:0}100%{opacity:1}}@keyframes noodleWristShowB{0%,44%{opacity:0}52%,96%{opacity:1}100%{opacity:0}}
+      @keyframes noodleWristA{0%{transform:rotate(0)}6%,44%{transform:rotate(-35deg)}52%,96%{transform:rotate(0)}100%{transform:rotate(0)}}@keyframes noodleWristB{0%,46%{transform:rotate(0)}56%,92%{transform:rotate(-35deg)}100%{transform:rotate(0)}}
       @keyframes noodleLook{0%{transform:translateX(0)}5%,95%{transform:translateX(7px)}100%{transform:translateX(0)}}
       @keyframes noodleBlinkOnce{0%,46%{transform:scaleY(1)}50%{transform:scaleY(.08)}54%,100%{transform:scaleY(1)}}
       @keyframes noodleFar{0%,3%{opacity:0;transform:scale(.5)}9%,91%{opacity:1;transform:scale(1)}97%,100%{opacity:0;transform:scale(.5)}}
+      .mascot .neck-head,.mascot .chin-head,.mascot .pose-body.lean,.mascot .roll-l,.mascot .roll-r,.mascot .wrist-hand,.mascot .eye-glide,.mascot .far-obj,.mascot .wavearm,.mascot [class^=walk-]{will-change:transform}
+      .mascot .nk-a,.mascot .nk-b,.mascot .chest-glow,.mascot .roll-a,.mascot .roll-b,.mascot .wrist-a,.mascot .wrist-b,.mascot .chin-cue{will-change:opacity}
       #tile.paused .mascot *{animation-play-state:paused!important}
       @media (prefers-reduced-motion:reduce){.mascot *{animation:none!important}.mascot .motion-root{transform:none!important}
-        .mascot .neck-head{transform:rotate(-18deg)}.mascot .chin-head{transform:translateX(-8px)}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .chest-glow{opacity:.95}
-        .mascot .wrist-hand{transform:rotate(35deg)}.mascot .eye-glide{transform:translateX(7px)}}
+        .mascot .neck-head{transform:rotate(-18deg)}.mascot .chin-head{transform:translateX(-12px)}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .chest-glow{opacity:.95}
+        .mascot .wrist-hand{transform:rotate(-35deg)}.mascot .eye-glide{transform:translateX(7px)}}
     `;
     document.head.appendChild(s);
   }
@@ -84,11 +88,12 @@
 
   // Side-profile face for a tube centred on x=100 (front edge at x=122): one eye, blush, profile mouth.
   function profileFace(cy = 80) {
-    return `<ellipse cx="105" cy="${cy + 13}" rx="5.5" ry="3.8" fill="${C.blush}"/>` +
-      `<g class="eyes"><ellipse cx="113" cy="${cy}" rx="3.8" ry="5.5" fill="${INK}"/><circle cx="114.2" cy="${cy - 2}" r="1.4" fill="#fff"/></g>` +
-      `<path d="M109 ${cy + 16} Q115 ${cy + 23} 121 ${cy + 15}" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`;
+    return `<ellipse cx="101" cy="${cy + 13}" rx="5.5" ry="3.8" fill="${C.blush}"/>` +
+      `<g class="eyes"><ellipse cx="108" cy="${cy}" rx="3.8" ry="5.5" fill="${INK}"/><circle cx="109.2" cy="${cy - 2}" r="1.4" fill="#fff"/></g>` +
+      `<path d="M122 ${cy + 1} Q137 ${cy + 9} 122 ${cy + 17} Z" fill="${C.body}" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>` +
+      `<path d="M113 ${cy + 23} Q118 ${cy + 26} 122 ${cy + 22}" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`;
   }
-  const ear = (x, y) => `<ellipse cx="${x}" cy="${y}" rx="3.5" ry="6" fill="${C.shade}" stroke="${INK}" stroke-width="2.5"/>`;
+  const ear = (x, y) => `<path d="M${x} ${y - 6} Q${x - 6} ${y} ${x} ${y + 7}" fill="none" stroke="${C.ridge}" stroke-width="3.5" stroke-linecap="round"/>`;
 
   // clip = [x, y, w, h] keeps only that part of the tube (used to split head and body).
   function tube(x, w, n, clip) {
@@ -131,9 +136,9 @@
       }
       case 'chin_tuck': {
         const lg = limb('M94 144 V172', 8) + limb('M106 144 V172', 8) + limb('M90 175 h14', 10) + limb('M102 175 h14', 10);
-        const head = tube(78, 44, 3, [70, 20, 60, 84]) + profileFace() + ear(104, 86);
-        return out(lg + tube(78, 44, 3, [70, 92, 60, 70]) + limb('M100 98 Q96 116 99 136') + pivot(100, 92, 'chin-head', head) +
-          `<line x1="96" y1="40" x2="96" y2="150" stroke="${C.red}" stroke-width="2.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".6"/>` + `<g class="chin-cue">${arrow(66, 64, 42)}</g>`);
+        const head = tube(78, 44, 3, [70, 20, 60, 84]) + profileFace() + ear(97, 90);
+        return out(lg + tube(78, 44, 3, [70, 92, 60, 70]) + limb('M100 98 Q96 116 99 136', 7) + pivot(100, 92, 'chin-head', head) +
+          `<line x1="88" y1="40" x2="88" y2="150" stroke="${C.red}" stroke-width="2.5" stroke-dasharray="1 6" stroke-linecap="round" opacity=".6"/>` + `<g class="chin-cue">${arrow(62, 64, 36)}</g>`);
       }
       case 'doorway': {
         const gid = 'gl' + (++uid);
@@ -150,9 +155,11 @@
           `<g class="roll-a">${a}</g><g class="roll-b" opacity="0"><g transform="translate(${2 * cx} 0) scale(-1 1)">${a}</g></g>`);
       }
       case 'wrist': {
-        // Set A: Toni's right arm out (viewer's left), other hand pulls the fingers back. Set B is the mirror image.
-        const under = (hc, cls, mirror, op) => `<g class="${cls}" opacity="${op}"><g${mirror ? ' transform="translate(200 0) scale(-1 1)"' : ''}>${limb('M74 96 H38') + pivot(38, 96, 'wrist-hand ' + hc, limb('M38 96 H21', 13))}</g></g>`;
-        const over = (cls, mirror, op) => `<g class="${cls}" opacity="${op}"><g${mirror ? ' transform="translate(200 0) scale(-1 1)"' : ''}>${limb('M127 98 Q92 134 40 120 L25 96')}</g></g>`;
+        // Set A: Toni's right arm reaches out to the viewer's right, palm down; the other hand pulls the fingers back. Set B mirrors it.
+        const hand = `<path d="M158 95 H178 Q188 95 188 104 Q188 113 178 113 H158 Z" fill="${C.light}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M170 96 V112 M178 97 V111" stroke="${C.ridge}" stroke-width="2" stroke-linecap="round"/>`;
+        const mir = m => m ? ' transform="translate(200 0) scale(-1 1)"' : '';
+        const under = (hc, cls, m, op) => `<g class="${cls}" opacity="${op}"><g${mir(m)}>${limb('M120 98 L158 104') + pivot(158, 104, 'wrist-hand ' + hc, hand)}</g></g>`;
+        const over = (cls, m, op) => `<g class="${cls}" opacity="${op}"><g${mir(m)}>${limb('M73 98 Q96 136 150 126 Q178 120 184 98')}</g></g>`;
         return out(legs + under('wrist-hand-a', 'wrist-a', false, 1) + under('wrist-hand-b', 'wrist-b', true, 0) + front + over('wrist-a', false, 1) + over('wrist-b', true, 0));
       }
       case 'eyes': {
@@ -167,9 +174,9 @@
         break;
       case 'walk': {
         const b = tube(78, 44, 3) + face(faceKind, 112, 80, 0.8, -6);
-        const leg = (x, cls) => pivot(x, 144, cls, limb(`M${x} 144 V168`, 8) + limb(`M${x - 4} 172 h14`, 10));
+        const leg = (x, cls) => pivot(x, 144, cls, limb(`M${x} 144 V168`, 8) + limb(`M${x - 3} 172 h11`, 10));
         const arm = cls => pivot(100, 96, cls, limb('M100 96 L100 122'));
-        legs = leg(96, 'walk-leg-left') + leg(108, 'walk-leg-right');
+        legs = leg(89, 'walk-leg-left') + leg(111, 'walk-leg-right');
         grp = arm('walk-arm-left') + arm('walk-arm-right') + b;
         tr = 'rotate(4 100 144)';
         pre = [88, 104, 120].map((y, i) => `<path d="M${14 + i * 6} ${y} h${28 - i * 6}" stroke="#BDB6AA" stroke-width="4" stroke-linecap="round"/>`).join('');

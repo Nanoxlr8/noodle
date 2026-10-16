@@ -17,9 +17,9 @@ const MOMENTS = {
   chin_tuck: [0, 2, 20, 31.5],
   doorway: [0, 6.5, 40, 90],
   shoulder_rolls: [0, 2.5, 5, 7.5, 52.5],
-  wrist: [0, 25, 60, 80],
+  wrist: [0, 25, 48, 60, 80],
   eyes: [0, 10, 50, 90],
-  walk: [0, 25, 50, 75],
+  walk: [0, 12.5, 25, 37.5, 50, 75],
   wave: [0, 25, 50, 75]
 };
 const CYCLE_MS = { walk: 1440, wave: 1640 }; // short loops are sampled over their own period, not the exercise length
@@ -45,7 +45,7 @@ const CYCLE_MS = { walk: 1440, wave: 1640 }; // short loops are sampled over the
     await win.webContents.capturePage(); await delay(200);
     const row = [];
     for (const pct of MOMENTS[it.name]) {
-      await js(`(() => { document.getElementById('tile').getAnimations({ subtree: true }).forEach(a => { a.pause(); a.currentTime = a.animationName === 'noodleBlink' ? 0 : ${pct / 100 * it.cycle}; }); })()`);
+      await js(`(() => { document.getElementById('tile').getAnimations({ subtree: true }).filter(a => a.animationName).forEach(a => { a.pause(); a.currentTime = a.animationName === 'noodleBlink' ? 0 : ${pct / 100 * it.cycle}; }); })()`);
       await delay(150); await win.webContents.capturePage(); await delay(100);
       const r = await js("(() => { const b = document.getElementById('tile').getBoundingClientRect(); return [b.x, b.y, b.width, b.height]; })()");
       const img = await win.webContents.capturePage({ x: Math.round(r[0] * ZOOM), y: Math.round(r[1] * ZOOM), width: Math.round(r[2] * ZOOM), height: Math.round(r[3] * ZOOM) });
