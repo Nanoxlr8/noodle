@@ -10,20 +10,22 @@ async function inspect() {
   const win = new BrowserWindow({ show: false, webPreferences: { contextIsolation: true } });
   await win.loadFile(path.join(__dirname, '..', 'renderer', 'card.html'));
   const result = await win.webContents.executeJavaScript(`(() => {
-    const host = document.createElement('div'); host.innerHTML = Noodle.toni('walk', 'smile'); document.body.append(host);
-    const doorway = document.createElement('div'); doorway.innerHTML = Noodle.toni('doorway', 'smile'); document.body.append(doorway);
+    const mk = (pose, face) => { const h = document.createElement('div'); h.innerHTML = Noodle.toni(pose, face || 'smile'); document.body.append(h); return h; };
+    const an = (h, sel) => getComputedStyle(h.querySelector(sel)).animationName;
+    const walk = mk('walk'), neck = mk('neck_side'), chin = mk('chin_tuck'), door = mk('doorway'), rolls = mk('shoulder_rolls'), wrist = mk('wrist'), eyes = mk('eyes');
     const wave = Noodle.toni('wave', 'hello'); const staticBlink = Noodle.toni('idle', 'blink');
-    const motion = host.querySelector('.motion-root'); const limb = host.querySelector('.walk-leg-left');
-    return { motion: getComputedStyle(motion).animationName, limb: getComputedStyle(limb).animationName,
-      wave: wave.includes('steps('), blink: staticBlink.includes('explicit-blink'), intro: document.querySelector('.entry-title').textContent,
-      doorwayRoot: getComputedStyle(doorway.querySelector('.motion-root')).animationName, doorwayBody: getComputedStyle(doorway.querySelector('.pose-body')).animationName };
+    return { motion: an(walk, '.walk-bob'), limb: an(walk, '.walk-leg-near'), wave: wave.includes('steps('), blink: staticBlink.includes('explicit-blink'),
+      neck: an(neck, '.neck-head'), neckRoot: an(neck, '.motion-root'), chin: an(chin, '.chin-head'), door: an(door, '.pose-body'), rolls: an(rolls, '.roll-l'),
+      wrist: an(wrist, '.wrist-hand-a'), eyes: an(eyes, '.eye-glide'), eyeBlink: an(eyes, '.eyes') };
   })()`);
   win.destroy(); return result;
 }
 
 (async () => {
   const normal = await inspect();
-  if (normal.motion !== 'noodleWalkBob' || normal.limb !== 'noodleWalk' || normal.doorwayRoot !== 'none' || normal.doorwayBody !== 'noodleLean' || normal.wave || !normal.blink) fail('normal motion layers were not rendered as expected');
+  const want = { motion: 'noodleWalkBob', limb: 'noodleWalk', neck: 'noodleNeck', neckRoot: 'none', chin: 'noodleChin', door: 'noodleLean', rolls: 'noodleRollL', wrist: 'noodleWristA', eyes: 'noodleLook', eyeBlink: 'noodleBlinkOnce' };
+  for (const k of Object.keys(want)) if (normal[k] !== want[k]) fail(`motion layer ${k}: expected ${want[k]}, got ${normal[k]}`);
+  if (normal.wave || !normal.blink) fail('wave/blink markup unexpected');
   const css = fs.readFileSync(path.join(__dirname, '..', 'renderer', 'mascot.js'), 'utf8');
   if (!css.includes('@media (prefers-reduced-motion:reduce)') || !css.includes('animation:none!important')) fail('reduced motion fallback is missing');
   fs.writeFileSync(path.join(__dirname, '..', '.motion-check-result.json'), JSON.stringify({ normal, reducedMotionRule: true }));

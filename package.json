@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "screenshots": "electron . --screenshot",
-    "test": "electron ./tests"
+    "test": "electron ./tests",
+    "motion-shots": "electron tests/motion-shots.js"
   },
   "devDependencies": {
     "electron": "44.7.2"
