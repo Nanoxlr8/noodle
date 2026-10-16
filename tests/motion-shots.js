@@ -14,10 +14,10 @@ const ZOOM = 3;
 // Moments (percent of one exercise duration) chosen to show each phase of the motion.
 const MOMENTS = {
   neck_side: [0, 25, 50, 75],
-  chin_tuck: [0, 2, 20, 31.5],
+  chin_tuck: [0, 5, 20, 31],
   doorway: [0, 6.5, 40, 90],
   shoulder_rolls: [0, 2.5, 5, 7.5, 52.5],
-  wrist: [0, 25, 48, 60, 80],
+  wrist: [0, 20, 47, 75],
   eyes: [0, 10, 50, 90],
   walk: [0, 12.5, 25, 37.5, 50, 62.5, 75, 87.5],
   wave: [0, 25, 50, 75]
