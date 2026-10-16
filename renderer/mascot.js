@@ -190,7 +190,7 @@
         const limbC = (d, w, c, op = 1) => `<path d="${d}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"/>`;
         const leg = (cls, fcls, w, c) => pivot(100, 140, cls, limbC('M100 140 V169', w, c) + pivot(100, 172, fcls, limbC('M97 174 h14', w + 2, c)));
         const arm = (cls, w, c) => pivot(100, 100, cls, limbC('M100 100 Q98 116 101 128', w, c) + `<circle cx="101" cy="130" r="${w / 2 + 2}" fill="${c}"/>`);
-        const bodyW = tube(78, 44, 3) + profileFace() + ear(97, 90);
+        const bodyW = tube(78, 44, 3) + profileFace().replace(/<path d="M122 [^>]*Z"[^>]*\/>/, '') + ear(97, 90); // walk: no nose
         pre = `<g class="walk-lines">` + [88, 104, 120].map((y, i) => `<path d="M${14 + i * 6} ${y} h${28 - i * 6}" stroke="#BDB6AA" stroke-width="4" stroke-linecap="round"/>`).join('') + `</g>`;
         legs = leg('walk-leg-far', 'walk-foot-far', 6, FAR);
         grp = `<g transform="rotate(3 100 175)"><g class="walk-bob">${arm('walk-arm-far', 6, FAR) .replace('','')}</g></g>`;
