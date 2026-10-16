@@ -13,3 +13,6 @@ build/
 .test-cli-profile/
 .preview-cli-profile/
 .motion-check-result.json
+.motion-profile/
+tests/motion/*
+!tests/motion/contact.png

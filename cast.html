@@ -41,7 +41,7 @@ const cast = [
   { key: 'toni', fn: N.toni, name: 'Toni', sub: 'the Rigatoni',
     desc: 'A ridged tube with an open top. The default noodle, and the one most cards show up with.',
     pal: [['Body', N.C.body], ['Light', N.C.light], ['Shade', N.C.shade], ['Ridges', N.C.ridge], ['Opening', N.C.open], ['Blush', N.C.blush], ['Ink', N.C.ink]],
-    poses: [['idle', 'Idle'], ['wave', 'Wave'], ['doorway', 'Doorway'], ['chin_tuck', 'Chin tuck'], ['neck_side', 'Neck side'], ['peek', 'Peek']],
+    poses: [['idle', 'Idle'], ['wave', 'Wave'], ['doorway', 'Doorway'], ['chin_tuck', 'Chin tuck'], ['neck_side', 'Neck side'], ['shoulder_rolls', 'Shoulder rolls'], ['wrist', 'Wrist'], ['eyes', 'Look far'], ['peek', 'Peek']],
     faces: [['smile', 'Smile'], ['blink', 'Blink'], ['hello', 'Hello'], ['chin_tuck', 'Chin tuck']], crop: [70, 56, 60, 54] },
   { key: 'sammy', fn: N.sammy, name: 'Sammy', sub: 'the Spaghetti',
     desc: 'A wavy strand with a curl on top. Same moves as Toni, just a lot more bendy.',
@@ -60,8 +60,8 @@ for (const c of cast) {
   big.innerHTML = c.fn('idle', 'smile');
   c.poses.forEach(([k, l], i) => {
     const t = document.createElement('div'); t.className = 'tile' + (i === 0 ? ' sel' : '');
-    t.innerHTML = '<div>' + c.fn(k, 'smile', { nosticker: false }) + '</div><span>' + l + '</span>';
-    t.onclick = () => { poses.querySelectorAll('.tile').forEach(x => x.classList.remove('sel')); t.classList.add('sel'); big.innerHTML = c.fn(k, 'smile'); };
+    t.innerHTML = '<div>' + c.fn(k, 'smile', { nosticker: false, dur: 8 }) + '</div><span>' + l + '</span>';
+    t.onclick = () => { poses.querySelectorAll('.tile').forEach(x => x.classList.remove('sel')); t.classList.add('sel'); big.innerHTML = c.fn(k, 'smile', { dur: 8 }); };
     poses.appendChild(t);
   });
   c.faces.forEach(([k, l]) => {
