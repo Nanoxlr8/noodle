@@ -10,7 +10,7 @@ Every so often, Toni the Rigatoni slides in, waves hello, and walks you through 
 
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D6?style=flat-square&logo=windows&logoColor=white)
 ![Electron](https://img.shields.io/badge/Electron-44-47848F?style=flat-square&logo=electron&logoColor=white)
-![Version](https://img.shields.io/badge/version-1.1.0-EDBB5F?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.1.1-EDBB5F?style=flat-square)
 ![Local only](https://img.shields.io/badge/data-100%25%20local-2B2420?style=flat-square)
 ![Reduced motion](https://img.shields.io/badge/a11y-reduced%20motion-C8452E?style=flat-square)
 
