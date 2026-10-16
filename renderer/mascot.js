@@ -169,9 +169,11 @@
         const FARC = '#6B5B4E';
         const lg = limb('M94 144 V172', 8) + limb('M106 144 V172', 8) + limb('M90 175 h14', 10) + limb('M102 175 h14', 10);
         const face = profileFace().replace(/<path d="M122 [^>]*Z"[^>]*\/>/, '') + ear(97, 90);
-        const hand = `<path d="M152 92 H170 Q179 92 179 100 Q179 108 170 108 H152 Z" fill="${C.light}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>` +
-          `<path d="M162 94 V106 M170 95 V105" stroke="${C.ridge}" stroke-width="2" stroke-linecap="round"/>` +
-          `<circle cx="176" cy="100" r="7" fill="${FARC}" stroke="${INK}" stroke-width="2"/>`;
+        // Mitten hand in Toni's ink style: a rounded palm with a thumb nub, fingers pointing forward; it bends up at the wrist.
+        const hand = `<path d="M152 100 H170" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>` +
+          `<path d="M157 93 Q160 86 165 89" fill="none" stroke="${INK}" stroke-width="6" stroke-linecap="round"/>` +
+          `<path d="M163 100 H171" stroke="#5A4A3E" stroke-width="2" stroke-linecap="round"/>` +
+          `<circle cx="174" cy="96" r="6.5" fill="${FARC}" stroke="${INK}" stroke-width="2"/>`;
         const farArm = `<path d="M100 108 Q128 128 156 112" fill="none" stroke="${FARC}" stroke-width="7" stroke-linecap="round"/>`;
         return out(lg + `<g transform="translate(0 14)">${farArm}</g>` + tube(78, 44, 3) + face + `<g transform="translate(0 14)">${limb('M110 100 H152')}${pivot(152, 100, 'wrist-hand wrist-hand-a', hand)}</g>`);
       }
