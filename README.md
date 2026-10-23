@@ -142,6 +142,8 @@ Sending a prompt calls `/start`, which begins the delay. When Claude finishes, `
 |---|---|
 | `npm start` | Run the app. |
 | `npm test` | Check the live animation layers and the reduced-motion fallback. |
+| `npm run stillness` | Step every exercise through its full duration and fail if the mascot freezes for more than 1.5 s. |
+| `npm run motion-shots` | Render a contact sheet of each motion to `tests/motion/contact.png`. |
 | `npm run screenshots` | Write fresh PNGs to `screenshots/`. |
 
 <div align="center">

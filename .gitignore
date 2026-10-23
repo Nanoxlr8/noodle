@@ -16,3 +16,4 @@ build/
 .motion-profile/
 tests/motion/*
 !tests/motion/contact.png
+.stillness-profile/
