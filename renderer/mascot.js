@@ -40,6 +40,10 @@
       .mascot .wrist-hand-a{animation:noodleWristA var(--dur,30s) ${EASE} infinite}.mascot .wrist-hand-b{animation:noodleWristB var(--dur,30s) ${EASE} infinite}
       .mascot .eye-glide{animation:noodleLook var(--dur,20s) ${EASE} infinite}.mascot.pose-eyes .eyes{animation:noodleBlinkOnce var(--dur,20s) ease-in-out infinite}
       .mascot .far-obj{animation:noodleFar var(--dur,20s) ease infinite}
+      .mascot .breath{transform-box:fill-box;transform-origin:50% 100%;animation:noodleHold 3.2s ease-in-out infinite}.mascot .pulse{transform-box:fill-box;transform-origin:center;animation:noodlePulse 1.4s ease-in-out infinite}
+      .mascot .door-arm-a{animation:noodleDoorA var(--dur,30s) ${EASE} infinite}.mascot .door-arm-b{animation:noodleDoorB var(--dur,30s) ${EASE} infinite}
+      @keyframes noodleHold{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-1.5px) scale(1.012,1.024)}}@keyframes noodlePulse{0%,100%{opacity:.6;transform:scale(.9)}50%{opacity:1;transform:scale(1.08)}}
+      @keyframes noodleDoorA{0%,100%{d:path('M104 90 L60 90 L60 54')}13.3%,80%{d:path('M118.7 91.5 L60 90 L60 54')}}@keyframes noodleDoorB{0%,100%{d:path('M100 94 L64 94 L64 58')}13.3%,80%{d:path('M114.1 94.7 L64 94 L64 58')}}
       @keyframes noodleWave{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}@keyframes noodleBreathe{0%,100%{transform:translateY(0) scaleY(1)}50%{transform:translateY(1px) scaleY(1.018)}}
       @keyframes noodleBlink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}@keyframes noodleWalk{from{transform:rotate(-24deg)}to{transform:rotate(24deg)}}@keyframes noodleWalkInv{from{transform:rotate(24deg)}to{transform:rotate(-24deg)}}@keyframes noodleArm{from{transform:rotate(-38deg)}to{transform:rotate(38deg)}}@keyframes noodleLines{0%{opacity:0;transform:translateX(6px)}50%{opacity:.9;transform:translateX(0)}100%{opacity:0;transform:translateX(-8px)}}@keyframes noodleWalkBob{0%,100%{transform:translateY(2.5px)}50%{transform:translateY(0)}}
       @keyframes noodleNeck{0%{transform:rotate(0)}4%,46%{transform:rotate(-18deg)}50%{transform:rotate(0)}54%,96%{transform:rotate(18deg)}100%{transform:rotate(0)}}
@@ -57,7 +61,7 @@
       .mascot .nk-a,.mascot .nk-b,.mascot .chest-glow,.mascot .roll-a,.mascot .roll-b,.mascot .wrist-a,.mascot .wrist-b,.mascot .chin-cue{will-change:opacity}
       #tile.paused .mascot *{animation-play-state:paused!important}
       @media (prefers-reduced-motion:reduce){.mascot *{animation:none!important}.mascot .motion-root{transform:none!important}
-        .mascot .neck-head{transform:rotate(-18deg)}.mascot .ct-head{transform:translateX(-14px)}.mascot .ct-neck{transform:skewX(41deg)}.mascot .chin-fold{opacity:1}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .chest-glow{opacity:.95}
+        .mascot .neck-head{transform:rotate(-18deg)}.mascot .ct-head{transform:translateX(-14px)}.mascot .ct-neck{transform:skewX(41deg)}.mascot .chin-fold{opacity:1}.mascot .pose-body.lean{transform:rotate(10deg)}.mascot .door-arm-a{d:path('M118.7 91.5 L60 90 L60 54')}.mascot .door-arm-b{d:path('M114.1 94.7 L64 94 L64 58')}.mascot .chest-glow{opacity:.95}
         .mascot .wrist-hand{transform:rotate(-12deg)}.mascot .th-arch{transform:rotate(-20deg)}.mascot .th-cue{opacity:1}.mascot .wrist-cue,.mascot .wrist-help{opacity:1}.mascot .eye-glide{transform:translateX(7px)}}
     `;
     document.head.appendChild(s);
@@ -134,8 +138,8 @@
       case 'neck_side': {
         // Head and body are separate: the head group bends around the neck pivot, the body and legs stay still.
         const head = tube(70, 60, 4, [60, 20, 80, 84]) + face(faceKind, 100, 80);
-        const mk = (cls, op, sx, dx) => `<g class="${cls}" opacity="${op}">${arrowDown(sx, 62, 84)}${dot(dx, 98)}</g>`;
-        return out(legs + limb('M73 92 Q55 106 57 130') + limb('M127 92 Q145 106 143 130') + tube(70, 60, 4, [60, 92, 80, 70]) + pivot(100, 92, 'neck-head', head) + mk('nk-a', 1, 146, 122) + mk('nk-b', 0, 54, 78));
+        const mk = (cls, op, sx, dx) => `<g class="${cls}" opacity="${op}"><g class="pulse">${arrowDown(sx, 62, 84)}</g><g class="pulse">${dot(dx, 98)}</g></g>`;
+        return out(legs + limb('M73 92 Q55 106 57 130') + limb('M127 92 Q145 106 143 130') + tube(70, 60, 4, [60, 92, 80, 70]) + pivot(100, 92, 'neck-head', `<g class="breath">${head}</g>`) + mk('nk-a', 1, 146, 122) + mk('nk-b', 0, 54, 78));
       }
       case 'chin_tuck': {
         // Side profile, like the promo: the noodle bends at the neck. The head band slides straight back (no nod) while a
@@ -147,21 +151,25 @@
         const lower = tube(78, 44, 3, [50, 107.5, 100, 61]);
         const fold = `<g class="chin-fold"><path d="M108 104 Q115 109 121 105" fill="none" stroke="${C.ridge}" stroke-width="3" stroke-linecap="round"/></g>`;
         const armBack = limb('M84 112 Q78 126 82 138', 8) + `<circle cx="82" cy="140" r="6" fill="${INK}"/>`;
-        return out(lg + lower + neck + head + fold + armBack + `<g class="chin-cue">${arrow(158, 72, 134)}</g>`);
+        return out(lg + lower + neck + head + fold + armBack + `<g class="chin-cue"><g class="pulse">${arrow(158, 72, 134)}</g></g>`);
       }
       case 'doorway': {
+        // Side profile facing right. The frame stays behind the shoulders and both forearms stay planted on it
+        // (elbows at shoulder height) while the body leans forward from the feet, opening the chest (glow).
         const gid = 'gl' + (++uid);
-        const door = `<line x1="175" y1="14" x2="175" y2="182" stroke="#CFC8BC" stroke-width="9" stroke-linecap="round"/><line x1="171" y1="16" x2="171" y2="180" stroke="#BDB6AA" stroke-width="2"/>`;
+        const door = `<line x1="60" y1="14" x2="60" y2="182" stroke="#CFC8BC" stroke-width="9" stroke-linecap="round"/><line x1="64" y1="16" x2="64" y2="180" stroke="#BDB6AA" stroke-width="2"/>`;
         const lg = limb('M94 144 L86 172', 8) + limb('M108 144 L120 172', 8);
-        const glow = `<defs><radialGradient id="${gid}"><stop offset="0" stop-color="${C.red}" stop-opacity=".8"/><stop offset="1" stop-color="${C.red}" stop-opacity="0"/></radialGradient></defs><ellipse class="chest-glow" opacity="0" cx="118" cy="114" rx="17" ry="28" fill="url(#${gid})"/>`;
-        const bodyG = limb('M104 90 L142 90 L142 54') + tube(78, 44, 3) + glow + profileFace() + limb('M100 94 L146 94 L146 58');
+        const glow = `<defs><radialGradient id="${gid}"><stop offset="0" stop-color="${C.red}" stop-opacity=".8"/><stop offset="1" stop-color="${C.red}" stop-opacity="0"/></radialGradient></defs><ellipse class="chest-glow" opacity="0" cx="116" cy="112" rx="15" ry="26" fill="url(#${gid})"/>`;
+        const armA = limb('M104 90 L60 90 L60 54').replace('<path', '<path class="door-arm-a"');
+        const armB = limb('M100 94 L64 94 L64 58').replace('<path', '<path class="door-arm-b"');
+        const bodyG = `<g class="breath">${tube(78, 44, 3)}${glow}${profileFace()}</g>`;
         const feet = limb('M82 175 h14', 10) + limb('M113 175 h14', 10);
-        return out(door + feet + pivot(103, 175, 'pose-body lean', lg + bodyG));
+        return out(door + armA + feet + pivot(103, 175, 'pose-body lean', lg + bodyG) + armB + `<g class="pulse">${arrow(150, 112, 176)}</g>`);
       }
       case 'shoulder_rolls': {
         const cx = 156, cy = 70, a = `<path d="M${cx} ${cy + 12} A12 12 0 1 0 ${cx - 12} ${cy}" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M${cx - 18} ${cy - 6} L${cx - 12} ${cy + 2} L${cx - 6} ${cy - 6}" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>`;
         return out(legs + `<g class="roll-l">${limb('M73 92 Q55 106 57 130')}</g><g class="roll-r">${limb('M127 92 Q145 106 143 130')}</g>` + front +
-          `<g class="roll-a">${a}</g><g class="roll-b" opacity="0"><g transform="translate(${2 * cx} 0) scale(-1 1)">${a}</g></g>`);
+          `<g class="roll-a"><g class="pulse">${a}</g></g><g class="roll-b" opacity="0"><g transform="translate(${2 * cx} 0) scale(-1 1)">${a}</g></g>`);
       }
       case 'thoracic': {
         // Seated thoracic extension, side profile facing right (from the promo): Toni sits on a chair with hands laced
@@ -175,13 +183,13 @@
         const elbow = `<defs><clipPath id="${eid}"><rect x="121" y="40" width="40" height="60"/></clipPath></defs><path clip-path="url(#${eid})" d="M112 52 L138 70 L112 90 Z" fill="${INK}"/>`;
         const handBack = `<circle cx="78" cy="58" r="7" fill="${INK}"/>`;
         const upper = `<g class="th-arch">${handBack}${tube(78, 44, 3)}${face}${elbow}</g>`;
-        const cue = `<g class="th-cue"><path d="M62 24 Q40 24 34 46" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M27 40 L34 47 L41 40" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+        const cue = `<g class="th-cue"><g class="pulse"><path d="M62 24 Q40 24 34 46" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round"/><path d="M27 40 L34 47 L41 40" fill="none" stroke="${C.red}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>`;
         return out(chair + upper + legsSeat + cue);
       }
       case 'eyes': {
         const sun = `<circle cx="178" cy="34" r="6" fill="#F5C86B" stroke="${INK}" stroke-width="3"/>`;
         const mt = `<path d="M148 60 L160 40 L168 52 L174 44 L186 60 Z" fill="#9DB08E" stroke="${INK}" stroke-width="3" stroke-linejoin="round"/>`;
-        return out(legs + limb(armL) + limb(armR) + tube(70, 60, 4) + face(faceKind, 100, 80, 1, 0, true) + pivot(167, 48, 'far-obj', sun + mt));
+        return out(legs + `<g class="breath">${limb(armL) + limb(armR) + tube(70, 60, 4) + face(faceKind, 100, 80, 1, 0, true)}</g>` + pivot(167, 48, 'far-obj', `<g class="pulse">${sun}</g>` + mt));
       }
       case 'peek':
         legs = '';
